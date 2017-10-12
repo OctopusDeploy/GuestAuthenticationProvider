@@ -25,6 +25,7 @@ namespace Octopus.Server.Extensibility.Authentication.Guest.Configuration
 
         protected override GuestConfiguration MapFromResource(GuestConfiguration resource)
         {
+            guestUserStateChecker.EnsureGuestUserIsInCorrectState(resource.IsEnabled);
             return resource;
         }
 
