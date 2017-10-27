@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Octopus.Data.Storage.Configuration;
 using Octopus.Node.Extensibility.Extensions.Infrastructure.Configuration;
+using Octopus.Node.Extensibility.HostServices.Mapping;
 using Octopus.Server.Extensibility.Authentication.Guest.GuestAuth;
 
 namespace Octopus.Server.Extensibility.Authentication.Guest.Configuration
@@ -13,7 +14,8 @@ namespace Octopus.Server.Extensibility.Authentication.Guest.Configuration
 
         public GuestConfigurationStore(
             IConfigurationStore configurationStore,
-            IGuestUserStateChecker guestUserStateChecker) : base(configurationStore)
+            IGuestUserStateChecker guestUserStateChecker,
+            IResourceMappingFactory factory) : base(configurationStore, factory)
         {
             this.guestUserStateChecker = guestUserStateChecker;
         }
@@ -27,6 +29,11 @@ namespace Octopus.Server.Extensibility.Authentication.Guest.Configuration
         {
             guestUserStateChecker.EnsureGuestUserIsInCorrectState(resource.IsEnabled);
             return resource;
+        }
+
+        public override IResourceMapping GetMapping()
+        {
+            return ResourceMappingFactory.Create<GuestConfigurationResource, GuestConfiguration>();
         }
 
         public override void SetIsEnabled(bool isEnabled)
