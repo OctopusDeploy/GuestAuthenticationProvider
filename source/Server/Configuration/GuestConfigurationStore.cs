@@ -6,7 +6,7 @@ using Octopus.Server.Extensibility.Authentication.Guest.GuestAuth;
 
 namespace Octopus.Server.Extensibility.Authentication.Guest.Configuration
 {
-    public class GuestConfigurationStore : ExtensionConfigurationStore<GuestConfiguration, GuestConfiguration>, IGuestConfigurationStore
+    public class GuestConfigurationStore : ExtensionConfigurationStore<GuestConfiguration, GuestConfigurationResource>, IGuestConfigurationStore
     {
         public static string SingletonId = "authentication-guest";
 
@@ -18,17 +18,6 @@ namespace Octopus.Server.Extensibility.Authentication.Guest.Configuration
             IResourceMappingFactory factory) : base(configurationStore, factory)
         {
             this.guestUserStateChecker = guestUserStateChecker;
-        }
-
-        protected override GuestConfiguration MapToResource(GuestConfiguration doc)
-        {
-            return doc;
-        }
-
-        protected override GuestConfiguration MapFromResource(GuestConfiguration resource)
-        {
-            guestUserStateChecker.EnsureGuestUserIsInCorrectState(resource.IsEnabled);
-            return resource;
         }
 
         public override IResourceMapping GetMapping()

@@ -1,12 +1,7 @@
-﻿using Octopus.Data.Model;
-using Octopus.Data.Resources;
+﻿using Octopus.Node.Extensibility.Extensions.Infrastructure.Configuration;
 
 namespace Octopus.Server.Extensibility.Authentication.Guest.Configuration
 {
-    public class GuestConfigurationResource : IResource
-    {
-        public string Id { get; }
-
-        public LinkCollection Links { get; set; }
-    }
+    public class GuestConfigurationResource : ExtensionConfigurationResource
+    {  }
 }
