@@ -3,6 +3,7 @@ using Octopus.Node.Extensibility.Authentication.Extensions;
 using Octopus.Node.Extensibility.Extensions;
 using Octopus.Node.Extensibility.Extensions.Infrastructure;
 using Octopus.Node.Extensibility.Extensions.Infrastructure.Configuration;
+using Octopus.Node.Extensibility.Extensions.Mappings;
 using Octopus.Server.Extensibility.Authentication.Guest.Configuration;
 using Octopus.Server.Extensibility.Authentication.Guest.GuestAuth;
 
@@ -21,6 +22,7 @@ namespace Octopus.Server.Extensibility.Authentication.Guest
             builder.RegisterType<GuestConfigurationStore>()
                 .As<IGuestConfigurationStore>()
                 .As<IHasConfigurationSettings>()
+                .As<IContributeMappings>()
                 .InstancePerDependency();
             builder.RegisterType<GuestConfigureCommands>().As<IContributeToConfigureCommand>().InstancePerDependency();
 
