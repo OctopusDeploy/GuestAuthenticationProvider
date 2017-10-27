@@ -2,7 +2,7 @@
 using Octopus.Node.Extensibility.Authentication.Resources;
 using Octopus.Server.Extensibility.Authentication.Guest.Configuration;
 
-namespace Octopus.Server.Extensibility.Authentication.Guest
+namespace Octopus.Server.Extensibility.Authentication.Guest 
 {
     public class GuestAuthenticationProvider : IAuthenticationProvider
     {
