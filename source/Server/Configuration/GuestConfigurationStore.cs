@@ -20,9 +20,9 @@ namespace Octopus.Server.Extensibility.Authentication.Guest.Configuration
             this.guestUserStateChecker = guestUserStateChecker;
         }
 
-        public override IResourceMapping GetMapping()
+        public override IEnumerable<IResourceMapping> GetMappings()
         {
-            return ResourceMappingFactory.Create<GuestConfigurationResource, GuestConfiguration>();
+            return new [] { ResourceMappingFactory.Create<GuestConfigurationResource, GuestConfiguration>() };
         }
 
         public override void SetIsEnabled(bool isEnabled)
