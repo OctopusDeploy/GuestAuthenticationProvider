@@ -107,16 +107,7 @@ Task("__Publish")
 		Source = "https://octopus.myget.org/F/octopus-dependencies/api/v3/index.json",
 		ApiKey = EnvironmentVariable("MyGetApiKey")
 	});
-	
-    if (gitVersionInfo.PreReleaseLabel == "")
-    {
-        NuGetPush($"{artifactsDir}/Octopus.Server.Extensibility.Authentication.Guest.{nugetVersion}.nupkg", new NuGetPushSettings {
-            Source = "https://www.nuget.org/api/v2/package",
-            ApiKey = EnvironmentVariable("NuGetApiKey")
-        });
-    }
 });
-
 
 Task("__CopyToLocalPackages")
     .WithCriteria(BuildSystem.IsLocalBuild)
