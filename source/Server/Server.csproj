@@ -6,6 +6,9 @@
     <AssemblyName>Octopus.Server.Extensibility.Authentication.Guest</AssemblyName>
     <TargetFramework>net451</TargetFramework>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <PackageLicenseUrl>https://octopus.com/</PackageLicenseUrl>
+    <PackageProjectUrl>https://octopus.com/</PackageProjectUrl>
+    <PackageIconUrl>http://i.octopusdeploy.com/resources/Avatar3_360.png</PackageIconUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -26,7 +29,7 @@
     <PackageReference Include="NuGet.Versioning" Version="3.4.3" />
     <PackageReference Include="Octopus.Configuration" Version="1.0.10" />
     <PackageReference Include="Octopus.Diagnostics" Version="1.0.11" />
-    <PackageReference Include="Octopus.Node.Extensibility" Version="3.0.0" />
+    <PackageReference Include="Octopus.Node.Extensibility" Version="3.0.1-enh-clientconfig0008" />
     <PackageReference Include="Octopus.Node.Extensibility.Authentication" Version="5.0.0" />
     <PackageReference Include="Octopus.Server.Extensibility" Version="3.0.0" />
     <PackageReference Include="Octopus.Server.Extensibility.Authentication" Version="5.0.0" />

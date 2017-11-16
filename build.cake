@@ -85,6 +85,14 @@ Task("__Build")
 
 Task("__Pack")
     .Does(() => {
+        DotNetCorePack("source/Client", new DotNetCorePackSettings
+        {
+            Configuration = configuration,
+            OutputDirectory = artifactsDir,
+            NoBuild = true,
+            ArgumentCustomization = args => args.Append($"/p:Version={nugetVersion}")
+        });
+
         var solutionDir = "./source/";
         var odNugetPackDir = Path.Combine(publishDir, "od");
         var nuspecFile = "Octopus.Server.Extensibility.Authentication.Guest.nuspec";
@@ -116,6 +124,7 @@ Task("__CopyToLocalPackages")
 {
     CreateDirectory(localPackagesDir);
     CopyFileToDirectory(Path.Combine(artifactsDir, $"Octopus.Server.Extensibility.Authentication.Guest.{nugetVersion}.nupkg"), localPackagesDir);
+    CopyFileToDirectory(Path.Combine(artifactsDir, $"Octopus.Client.Extensibility.Authentication.Guest.{nugetVersion}.nupkg"), localPackagesDir);
 });
 
 //////////////////////////////////////////////////////////////////////

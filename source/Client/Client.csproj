@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net451</TargetFramework>
+    <PackageId>Octopus.Client.Extensibility.Authentication.Guest</PackageId>
+    <Version>0.0.0-local</Version>
+    <Authors>Octopus Deploy</Authors>
+    <Company>Octopus Deploy Pty. Ltd.</Company>
+    <Product>Octopus Deploy Client Extensibility</Product>
+    <Description>Octopus Deploy Client Extensibility for Guest Authentication</Description>
+    <Copyright>Copyright © Octopus Deploy Pty. Ltd. 2017</Copyright>
+    <PackageLicenseUrl>https://octopus.com/</PackageLicenseUrl>
+    <PackageProjectUrl>https://octopus.com/</PackageProjectUrl>
+    <PackageIconUrl>http://i.octopusdeploy.com/resources/Avatar3_360.png</PackageIconUrl>
+    <AssemblyName>Octopus.Client.Extensibility.Authentication.Guest</AssemblyName>
+    <RootNamespace>Octopus.Client.Extensibility.Authentication.Guest</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Octopus.Client.Extensibility" Version="3.0.1-enh-clientconfig0008" />
+  </ItemGroup>
+  
+</Project>
