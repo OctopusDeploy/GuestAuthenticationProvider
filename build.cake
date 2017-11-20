@@ -115,6 +115,18 @@ Task("__Publish")
 		Source = "https://octopus.myget.org/F/octopus-dependencies/api/v3/index.json",
 		ApiKey = EnvironmentVariable("MyGetApiKey")
 	});
+    NuGetPush($"{artifactsDir}/Octopus.Client.Extensibility.Authentication.Guest.{nugetVersion}.nupkg", new NuGetPushSettings {
+		Source = "https://octopus.myget.org/F/octopus-dependencies/api/v3/index.json",
+		ApiKey = EnvironmentVariable("MyGetApiKey")
+	});
+
+     if (gitVersionInfo.PreReleaseLabel == "")
+    {
+        NuGetPush($"{artifactsDir}/Octopus.Client.Extensibility.Authentication.Guest.{nugetVersion}.nupkg", new NuGetPushSettings {
+            Source = "https://www.nuget.org/api/v2/package",
+            ApiKey = EnvironmentVariable("NuGetApiKey")
+        });
+    }
 });
 
 Task("__CopyToLocalPackages")
