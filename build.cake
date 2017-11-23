@@ -85,6 +85,14 @@ Task("__Build")
 
 Task("__Pack")
     .Does(() => {
+        DotNetCorePack("source/Client", new DotNetCorePackSettings
+        {
+            Configuration = configuration,
+            OutputDirectory = artifactsDir,
+            NoBuild = true,
+            ArgumentCustomization = args => args.Append($"/p:Version={nugetVersion}")
+        });
+
         var solutionDir = "./source/";
         var odNugetPackDir = Path.Combine(publishDir, "od");
         var nuspecFile = "Octopus.Server.Extensibility.Authentication.Guest.nuspec";
@@ -107,6 +115,18 @@ Task("__Publish")
 		Source = "https://octopus.myget.org/F/octopus-dependencies/api/v3/index.json",
 		ApiKey = EnvironmentVariable("MyGetApiKey")
 	});
+    NuGetPush($"{artifactsDir}/Octopus.Client.Extensibility.Authentication.Guest.{nugetVersion}.nupkg", new NuGetPushSettings {
+		Source = "https://octopus.myget.org/F/octopus-dependencies/api/v3/index.json",
+		ApiKey = EnvironmentVariable("MyGetApiKey")
+	});
+
+     if (gitVersionInfo.PreReleaseLabel == "")
+    {
+        NuGetPush($"{artifactsDir}/Octopus.Client.Extensibility.Authentication.Guest.{nugetVersion}.nupkg", new NuGetPushSettings {
+            Source = "https://www.nuget.org/api/v2/package",
+            ApiKey = EnvironmentVariable("NuGetApiKey")
+        });
+    }
 });
 
 Task("__CopyToLocalPackages")
@@ -116,6 +136,7 @@ Task("__CopyToLocalPackages")
 {
     CreateDirectory(localPackagesDir);
     CopyFileToDirectory(Path.Combine(artifactsDir, $"Octopus.Server.Extensibility.Authentication.Guest.{nugetVersion}.nupkg"), localPackagesDir);
+    CopyFileToDirectory(Path.Combine(artifactsDir, $"Octopus.Client.Extensibility.Authentication.Guest.{nugetVersion}.nupkg"), localPackagesDir);
 });
 
 //////////////////////////////////////////////////////////////////////
