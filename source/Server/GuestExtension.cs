@@ -21,7 +21,12 @@ namespace Octopus.Server.Extensibility.Authentication.Guest
 
             builder.RegisterType<GuestConfigurationStore>()
                 .As<IGuestConfigurationStore>()
+                .As<IExtensionConfigurationStore<GuestConfiguration>>()
+                .InstancePerDependency();
+            builder.RegisterType<GuestConfigurationSettings>()
+                .As<IGuestConfigurationSettings>()
                 .As<IHasConfigurationSettings>()
+                .As<IHasConfigurationSettingsResource>()
                 .As<IContributeMappings>()
                 .InstancePerDependency();
             builder.RegisterType<GuestConfigureCommands>().As<IContributeToConfigureCommand>().InstancePerDependency();
