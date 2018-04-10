@@ -11,8 +11,7 @@ namespace Octopus.Server.Extensibility.Authentication.Guest.Configuration
 
         public GuestConfigurationSettings(
             IGuestConfigurationStore guestConfigurationStore,
-            IGuestUserStateChecker guestUserStateChecker,
-            IResourceMappingFactory factory) : base(guestConfigurationStore, factory)
+            IGuestUserStateChecker guestUserStateChecker) : base(guestConfigurationStore)
         {
             this.guestUserStateChecker = guestUserStateChecker;
         }
@@ -28,16 +27,13 @@ namespace Octopus.Server.Extensibility.Authentication.Guest.Configuration
             yield return new ConfigurationValue("Octopus.WebPortal.GuestLoginEnabled", ConfigurationDocumentStore.GetIsEnabled().ToString(), ConfigurationDocumentStore.GetIsEnabled(), "Is Enabled");
         }
 
-        public override IEnumerable<IResourceMapping> GetMappings()
+        public override void BuildMappings(IResourceMappingsBuilder builder)
         {
-            return new[]
-            {
-                ResourceMappingFactory.Create<GuestConfigurationResource, GuestConfiguration>()
-                    .EnrichModel((resource, model, context) =>
-                    {
-                        guestUserStateChecker.EnsureGuestUserIsInCorrectState(resource.IsEnabled);
-                    })
-            };
+            builder.Map<GuestConfigurationResource, GuestConfiguration>()
+                .EnrichModel((model, resource) =>
+                {
+                    guestUserStateChecker.EnsureGuestUserIsInCorrectState(resource.IsEnabled);
+                });
         }
     }
 }

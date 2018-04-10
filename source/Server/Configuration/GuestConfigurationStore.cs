@@ -1,6 +1,5 @@
 ﻿using Octopus.Data.Storage.Configuration;
 using Octopus.Node.Extensibility.Extensions.Infrastructure.Configuration;
-using Octopus.Node.Extensibility.HostServices.Mapping;
 using Octopus.Server.Extensibility.Authentication.Guest.GuestAuth;
 
 namespace Octopus.Server.Extensibility.Authentication.Guest.Configuration
@@ -13,8 +12,7 @@ namespace Octopus.Server.Extensibility.Authentication.Guest.Configuration
 
         public GuestConfigurationStore(
             IConfigurationStore configurationStore,
-            IGuestUserStateChecker guestUserStateChecker,
-            IResourceMappingFactory factory) : base(configurationStore, factory)
+            IGuestUserStateChecker guestUserStateChecker) : base(configurationStore)
         {
             this.guestUserStateChecker = guestUserStateChecker;
         }
