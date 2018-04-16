@@ -29,10 +29,10 @@
     <PackageReference Include="NuGet.Versioning" Version="3.4.3" />
     <PackageReference Include="Octopus.Configuration" Version="1.0.10" />
     <PackageReference Include="Octopus.Diagnostics" Version="1.0.11" />
-    <PackageReference Include="Octopus.Node.Extensibility" Version="4.0.0" />
-    <PackageReference Include="Octopus.Node.Extensibility.Authentication" Version="5.0.0" />
-    <PackageReference Include="Octopus.Server.Extensibility" Version="4.0.0" />
-    <PackageReference Include="Octopus.Server.Extensibility.Authentication" Version="5.0.0" />
+    <PackageReference Include="Octopus.Node.Extensibility" Version="5.0.0" />
+    <PackageReference Include="Octopus.Node.Extensibility.Authentication" Version="7.0.0" />
+    <PackageReference Include="Octopus.Server.Extensibility" Version="5.0.0" />
+    <PackageReference Include="Octopus.Server.Extensibility.Authentication" Version="7.0.0" />
     <PackageReference Include="Octopus.Time" Version="1.0.8" />
   </ItemGroup>
 
