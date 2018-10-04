@@ -28,7 +28,7 @@ namespace Octopus.Server.Extensibility.Authentication.Guest.GuestAuth
 
         public AuthenticationUserCreateResult ValidateCredentials(string username, string password, CancellationToken cancellationToken)
         {
-            if ((!configurationStore.GetIsEnabled() || !string.Equals(username, User.GuestLogin, StringComparison.InvariantCultureIgnoreCase)))
+            if ((!configurationStore.GetIsEnabled() || !string.Equals(username, User.GuestLogin, StringComparison.OrdinalIgnoreCase)))
                 return new AuthenticationUserCreateResult();
 
             var user = userStore.GetByUsername(username);
