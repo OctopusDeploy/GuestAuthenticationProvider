@@ -4,7 +4,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Octopus.Server.Extensibility.Authentication.Guest</RootNamespace>
     <AssemblyName>Octopus.Server.Extensibility.Authentication.Guest</AssemblyName>
-    <TargetFramework>netstandard1.6</TargetFramework>
+    <TargetFrameworks>net451;netstandard1.6</TargetFrameworks>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <PackageLicenseUrl>https://octopus.com/</PackageLicenseUrl>
     <PackageProjectUrl>https://octopus.com/</PackageProjectUrl>
@@ -12,16 +12,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <!-- These packages are copied to the output directory during the build process -->
     <PackageReference Include="Autofac" Version="4.6.0" />
     <PackageReference Include="Nevermore.Contracts" Version="4.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
     <PackageReference Include="Octopus.Configuration" Version="1.0.10" />
     <PackageReference Include="Octopus.Diagnostics" Version="1.0.11" />
-    <PackageReference Include="Octopus.Node.Extensibility" Version="5.0.4-removing-nancy0010" />
-    <PackageReference Include="Octopus.Node.Extensibility.Authentication" Version="8.0.1-more-nancy-work0002" />
-    <PackageReference Include="Octopus.Server.Extensibility" Version="5.0.4-removing-nancy0010" />
-    <PackageReference Include="Octopus.Server.Extensibility.Authentication" Version="8.0.1-more-nancy-work0002" />
+    <PackageReference Include="Octopus.Node.Extensibility" Version="5.0.4-removing-nancy0013" />
+    <PackageReference Include="Octopus.Node.Extensibility.Authentication" Version="8.0.1-more-nancy-work0004" />
+    <PackageReference Include="Octopus.Server.Extensibility" Version="5.0.4-removing-nancy0013" />
+    <PackageReference Include="Octopus.Server.Extensibility.Authentication" Version="8.0.1-more-nancy-work0004" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,9 +31,5 @@
       <Link>Properties\VersionInfo.cs</Link>
     </Compile>
   </ItemGroup>
-
-  <Target Name="AfterBuildNetStandard16" AfterTargets="Build">
-    <Exec Command="xcopy $(OutputPath)*Extensibility.Authentication.Guest.* C:\ProgramData\Octopus\CustomExtensions /S /Y /I /D" />
-  </Target>
 
 </Project>

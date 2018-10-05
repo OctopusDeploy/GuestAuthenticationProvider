@@ -1,7 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.6</TargetFramework>
+    <TargetFrameworks>net451;netstandard1.6</TargetFrameworks>
     <PackageId>Octopus.Client.Extensibility.Authentication.Guest</PackageId>
     <Version>0.0.0-local</Version>
     <Authors>Octopus Deploy</Authors>
