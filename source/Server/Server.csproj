@@ -27,7 +27,7 @@
     <PackageReference Include="Nevermore.Contracts" Version="4.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
     <PackageReference Include="NuGet.Versioning" Version="3.4.3" />
-    <PackageReference Include="Octopus.Configuration" Version="1.0.10" />
+    <PackageReference Include="Octopus.Configuration" Version="2.0.0" />
     <PackageReference Include="Octopus.Diagnostics" Version="1.0.11" />
     <PackageReference Include="Octopus.Node.Extensibility" Version="5.0.0" />
     <PackageReference Include="Octopus.Node.Extensibility.Authentication" Version="8.0.0" />
