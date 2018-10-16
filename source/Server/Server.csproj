@@ -4,7 +4,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Octopus.Server.Extensibility.Authentication.Guest</RootNamespace>
     <AssemblyName>Octopus.Server.Extensibility.Authentication.Guest</AssemblyName>
-    <TargetFrameworks>net451;netstandard1.6</TargetFrameworks>
+    <TargetFrameworks>net451;netstandard2.0</TargetFrameworks>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <PackageLicenseUrl>https://octopus.com/</PackageLicenseUrl>
     <PackageProjectUrl>https://octopus.com/</PackageProjectUrl>
@@ -20,9 +20,9 @@
     <PackageReference Include="Octopus.Configuration" Version="2.0.0" />
     <PackageReference Include="Octopus.Diagnostics" Version="1.0.11" />
     <PackageReference Include="Octopus.Node.Extensibility" Version="5.0.4-removing-nancy0013" />
-    <PackageReference Include="Octopus.Node.Extensibility.Authentication" Version="8.0.1-more-nancy-work0004" />
+    <PackageReference Include="Octopus.Node.Extensibility.Authentication" Version="8.1.1-more-nancy-work0004" />
     <PackageReference Include="Octopus.Server.Extensibility" Version="5.0.4-removing-nancy0013" />
-    <PackageReference Include="Octopus.Server.Extensibility.Authentication" Version="8.0.1-more-nancy-work0004" />
+    <PackageReference Include="Octopus.Server.Extensibility.Authentication" Version="8.1.1-more-nancy-work0004" />
   </ItemGroup>
 
   <ItemGroup>
