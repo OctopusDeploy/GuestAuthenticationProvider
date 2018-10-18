@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Octopus.Diagnostics;
-using Octopus.Node.Extensibility.Extensions.Infrastructure.Configuration;
+using Octopus.Server.Extensibility.Extensions.Infrastructure.Configuration;
 
 namespace Octopus.Server.Extensibility.Authentication.Guest.Configuration
 {

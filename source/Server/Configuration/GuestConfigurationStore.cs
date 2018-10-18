@@ -1,6 +1,6 @@
 ﻿using Octopus.Data.Storage.Configuration;
-using Octopus.Node.Extensibility.Extensions.Infrastructure.Configuration;
 using Octopus.Server.Extensibility.Authentication.Guest.GuestAuth;
+using Octopus.Server.Extensibility.Extensions.Infrastructure.Configuration;
 
 namespace Octopus.Server.Extensibility.Authentication.Guest.Configuration
 {

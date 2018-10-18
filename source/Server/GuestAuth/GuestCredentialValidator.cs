@@ -4,7 +4,7 @@ using Octopus.Data.Model.User;
 using Octopus.Data.Storage.User;
 using Octopus.Diagnostics;
 using Octopus.Server.Extensibility.Authentication.Guest.Configuration;
-using Octopus.Node.Extensibility.Authentication.Storage.User;
+using Octopus.Server.Extensibility.Authentication.Storage.User;
 
 namespace Octopus.Server.Extensibility.Authentication.Guest.GuestAuth
 {

@@ -3,7 +3,7 @@ using System.Threading;
 using Octopus.Data.Model.User;
 using Octopus.Data.Storage.User;
 using Octopus.Diagnostics;
-using Octopus.Node.Extensibility.Authentication.HostServices;
+using Octopus.Server.Extensibility.Authentication.HostServices;
 
 namespace Octopus.Server.Extensibility.Authentication.Guest.GuestAuth
 {

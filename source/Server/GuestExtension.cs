@@ -1,11 +1,11 @@
 ﻿using Autofac;
-using Octopus.Node.Extensibility.Authentication.Extensions;
-using Octopus.Node.Extensibility.Extensions;
-using Octopus.Node.Extensibility.Extensions.Infrastructure;
-using Octopus.Node.Extensibility.Extensions.Infrastructure.Configuration;
-using Octopus.Node.Extensibility.Extensions.Mappings;
+using Octopus.Server.Extensibility.Authentication.Extensions;
 using Octopus.Server.Extensibility.Authentication.Guest.Configuration;
 using Octopus.Server.Extensibility.Authentication.Guest.GuestAuth;
+using Octopus.Server.Extensibility.Extensions;
+using Octopus.Server.Extensibility.Extensions.Infrastructure;
+using Octopus.Server.Extensibility.Extensions.Infrastructure.Configuration;
+using Octopus.Server.Extensibility.Extensions.Mappings;
 
 namespace Octopus.Server.Extensibility.Authentication.Guest
 {

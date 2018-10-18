@@ -1,6 +1,6 @@
-﻿using Octopus.Node.Extensibility.Authentication.Extensions;
-using Octopus.Node.Extensibility.Authentication.Resources;
+﻿using Octopus.Server.Extensibility.Authentication.Extensions;
 using Octopus.Server.Extensibility.Authentication.Guest.Configuration;
+using Octopus.Server.Extensibility.Authentication.Resources;
 
 namespace Octopus.Server.Extensibility.Authentication.Guest 
 {
