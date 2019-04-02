@@ -22,9 +22,9 @@ namespace Octopus.Server.Extensibility.Authentication.Guest.Configuration
 
         public override string Description => "Guest login authentication settings";
 
-        public override IEnumerable<ConfigurationValue> GetConfigurationValues()
+        public override IEnumerable<IConfigurationValue> GetConfigurationValues()
         {
-            yield return new ConfigurationValue("Octopus.WebPortal.GuestLoginEnabled", ConfigurationDocumentStore.GetIsEnabled().ToString(), ConfigurationDocumentStore.GetIsEnabled(), "Is Enabled");
+            yield return new ConfigurationValue<bool>("Octopus.WebPortal.GuestLoginEnabled", ConfigurationDocumentStore.GetIsEnabled(), ConfigurationDocumentStore.GetIsEnabled(), "Is Enabled");
         }
 
         public override void BuildMappings(IResourceMappingsBuilder builder)
