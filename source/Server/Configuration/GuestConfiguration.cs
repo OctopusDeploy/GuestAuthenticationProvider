@@ -5,8 +5,9 @@ namespace Octopus.Server.Extensibility.Authentication.Guest.Configuration
 {
     public class GuestConfiguration : ExtensionConfigurationDocument
     {
-        public GuestConfiguration()
+        public GuestConfiguration() : this("Guest", "Octopus Deploy")
         {
+            
         }
 
         public GuestConfiguration(string name, string extensionAuthor) : base(name, extensionAuthor, "1.0")

@@ -41,7 +41,7 @@ namespace Octopus.Server.Extensibility.Authentication.Guest.Configuration
 
             var guestLoginEnabled = settings.Get("Octopus.WebPortal.GuestLoginEnabled", false);
 
-            doc = new GuestConfiguration("Guest", "Octopus Deploy")
+            doc = new GuestConfiguration()
             {
                 IsEnabled = guestLoginEnabled
             };
