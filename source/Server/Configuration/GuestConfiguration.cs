@@ -5,7 +5,7 @@ namespace Octopus.Server.Extensibility.Authentication.Guest.Configuration
 {
     public class GuestConfiguration : ExtensionConfigurationDocument
     {
-        protected GuestConfiguration()
+        public GuestConfiguration()
         {
         }
 
