@@ -35,7 +35,7 @@ namespace Octopus.Server.Extensibility.Authentication.Guest
                 .As<IGuestCredentialValidator>()
                 .As<IDoesBasicAuthentication>()
                 .InstancePerDependency();
-
+            builder.RegisterType<GuestLoginParametersHandler>().As<ICanHandleLoginParameters>().InstancePerDependency();
             builder.RegisterType<GuestAuthenticationProvider>().As<IAuthenticationProvider>().InstancePerDependency();
         }
     }

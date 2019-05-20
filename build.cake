@@ -53,7 +53,6 @@ Task("__Default")
     .IsDependentOn("__Restore")
     .IsDependentOn("__Build")
     .IsDependentOn("__Pack")
-    .IsDependentOn("__Publish")
     .IsDependentOn("__CopyToLocalPackages");
 
 Task("__Clean")
@@ -107,27 +106,6 @@ Task("__Pack")
         });
     });
 
-Task("__Publish")
-    .WithCriteria(BuildSystem.IsRunningOnTeamCity)
-    .Does(() =>
-{
-    NuGetPush($"{artifactsDir}/Octopus.Server.Extensibility.Authentication.Guest.{nugetVersion}.nupkg", new NuGetPushSettings {
-		Source = "https://f.feedz.io/octopus-deploy/dependencies/nuget",
-		ApiKey = EnvironmentVariable("FeedzIoApiKey")
-	});
-    NuGetPush($"{artifactsDir}/Octopus.Client.Extensibility.Authentication.Guest.{nugetVersion}.nupkg", new NuGetPushSettings {
-		Source = "https://f.feedz.io/octopus-deploy/dependencies/nuget",
-		ApiKey = EnvironmentVariable("FeedzIoApiKey")
-	});
-
-     if (gitVersionInfo.PreReleaseLabel == "")
-    {
-        NuGetPush($"{artifactsDir}/Octopus.Client.Extensibility.Authentication.Guest.{nugetVersion}.nupkg", new NuGetPushSettings {
-            Source = "https://www.nuget.org/api/v2/package",
-            ApiKey = EnvironmentVariable("NuGetApiKey")
-        });
-    }
-});
 
 Task("__CopyToLocalPackages")
     .WithCriteria(BuildSystem.IsLocalBuild)

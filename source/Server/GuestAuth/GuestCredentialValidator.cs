@@ -40,11 +40,11 @@ namespace Octopus.Server.Extensibility.Authentication.Guest.GuestAuth
             }
             else if (user == null)
             {
-                messageText = "Guest login is enabled, but the guest user acccount could not be found so the login request was rejected. Please restart the Octopus server.";
+                messageText = "Guest login is enabled, but the guest user account could not be found so the login request was rejected. Please restart the Octopus server.";
             }
             else if (user.IsActive == false)
             {
-                messageText = "Guest login is enabled, but the guest acccount is disabled so the login request was rejected. Please re-enable the guest account if you want guest logins to work.";
+                messageText = "Guest login is enabled, but the guest account is disabled so the login request was rejected. Please re-enable the guest account if you want guest logins to work.";
             }
 
             log.Warn(messageText);
