@@ -20,7 +20,7 @@ var publishDir = "./publish";
 var localPackagesDir = "../LocalPackages";
 var artifactsDir = "./artifacts";
 var assetDir = "./BuildAssets";
-var bin452 = "/bin/Release/net452/";
+var bin462 = "/bin/Release/net462/";
 
 var gitVersionInfo = GitVersion(new GitVersionSettings {
     OutputType = GitVersionOutput.Json
@@ -98,7 +98,7 @@ Task("__Pack")
         CreateDirectory(odNugetPackDir);
         CopyFileToDirectory(Path.Combine(assetDir, nuspecFile), odNugetPackDir);
 
-        CopyFileToDirectory(solutionDir + "Server" + bin452 + "Octopus.Server.Extensibility.Authentication.Guest.dll", odNugetPackDir);
+        CopyFileToDirectory(solutionDir + "Server" + bin462 + "Octopus.Server.Extensibility.Authentication.Guest.dll", odNugetPackDir);
 
         NuGetPack(Path.Combine(odNugetPackDir, nuspecFile), new NuGetPackSettings {
             Version = nugetVersion,
