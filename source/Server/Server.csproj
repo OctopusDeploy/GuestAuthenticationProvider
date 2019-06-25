@@ -4,7 +4,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Octopus.Server.Extensibility.Authentication.Guest</RootNamespace>
     <AssemblyName>Octopus.Server.Extensibility.Authentication.Guest</AssemblyName>
-    <TargetFrameworks>net462;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net452;netstandard2.0</TargetFrameworks>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <Authors>Octopus Deploy</Authors>
     <PackageLicenseUrl>https://github.com/OctopusDeploy/GuestAuthenticationProvider/blob/master/LICENSE.txt</PackageLicenseUrl>
