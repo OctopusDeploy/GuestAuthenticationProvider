@@ -4,7 +4,7 @@ using Octopus.Server.Extensibility.Authentication.Resources;
 
 namespace Octopus.Server.Extensibility.Authentication.Guest 
 {
-    public class GuestAuthenticationProvider : IAuthenticationProvider
+    class GuestAuthenticationProvider : IAuthenticationProvider
     {
         public const string ProviderName = "Octopus - Guest";
         readonly IGuestConfigurationStore configurationStore;

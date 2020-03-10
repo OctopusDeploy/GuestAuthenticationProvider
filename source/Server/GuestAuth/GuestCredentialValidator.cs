@@ -8,7 +8,7 @@ using Octopus.Server.Extensibility.Authentication.Storage.User;
 
 namespace Octopus.Server.Extensibility.Authentication.Guest.GuestAuth
 {
-    public class GuestCredentialValidator : IGuestCredentialValidator
+    class GuestCredentialValidator : IGuestCredentialValidator
     {
         readonly ILog log;
         readonly IUserStore userStore;

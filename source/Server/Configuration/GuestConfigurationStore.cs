@@ -4,7 +4,7 @@ using Octopus.Server.Extensibility.Extensions.Infrastructure.Configuration;
 
 namespace Octopus.Server.Extensibility.Authentication.Guest.Configuration
 {
-    public class GuestConfigurationStore : ExtensionConfigurationStore<GuestConfiguration>, IGuestConfigurationStore
+    class GuestConfigurationStore : ExtensionConfigurationStore<GuestConfiguration>, IGuestConfigurationStore
     {
         public static string SingletonId = "authentication-guest";
 

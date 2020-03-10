@@ -5,7 +5,7 @@ using Octopus.Server.Extensibility.HostServices.Mapping;
 
 namespace Octopus.Server.Extensibility.Authentication.Guest.Configuration
 {
-    public class GuestConfigurationSettings : ExtensionConfigurationSettings<GuestConfiguration, GuestConfigurationResource, IGuestConfigurationStore>, IGuestConfigurationSettings
+    class GuestConfigurationSettings : ExtensionConfigurationSettings<GuestConfiguration, GuestConfigurationResource, IGuestConfigurationStore>, IGuestConfigurationSettings
     {
         private readonly IGuestUserStateChecker guestUserStateChecker;
 

@@ -3,7 +3,7 @@ using Octopus.Server.Extensibility.Extensions.Infrastructure.Configuration;
 
 namespace Octopus.Server.Extensibility.Authentication.Guest.Configuration
 {
-    public class GuestConfiguration : ExtensionConfigurationDocument
+    class GuestConfiguration : ExtensionConfigurationDocument
     {
         public GuestConfiguration() : this("Guest", "Octopus Deploy")
         {

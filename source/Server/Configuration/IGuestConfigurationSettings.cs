@@ -2,7 +2,7 @@
 
 namespace Octopus.Server.Extensibility.Authentication.Guest.Configuration
 {
-    public interface IGuestConfigurationSettings : IHasConfigurationSettings
+    interface IGuestConfigurationSettings : IHasConfigurationSettings
     {
     }
 }

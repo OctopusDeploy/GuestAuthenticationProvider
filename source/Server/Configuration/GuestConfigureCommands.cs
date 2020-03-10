@@ -5,7 +5,7 @@ using Octopus.Server.Extensibility.Extensions.Infrastructure.Configuration;
 
 namespace Octopus.Server.Extensibility.Authentication.Guest.Configuration
 {
-    public class GuestConfigureCommands : IContributeToConfigureCommand
+    class GuestConfigureCommands : IContributeToConfigureCommand
     {
         readonly ILog log;
         readonly Lazy<IGuestConfigurationStore> configurationStore;

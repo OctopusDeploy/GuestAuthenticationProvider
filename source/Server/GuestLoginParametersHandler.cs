@@ -7,7 +7,7 @@ using Octopus.Server.Extensibility.Authentication.Web;
 
 namespace Octopus.Server.Extensibility.Authentication.Guest
 {
-    public class GuestLoginParametersHandler : ICanHandleLoginParameters
+    class GuestLoginParametersHandler : ICanHandleLoginParameters
     {
         private readonly IGuestConfigurationStore guestConfigurationStore;
         const string AutoLoginParameterName = "autologin";

@@ -7,7 +7,7 @@ using Octopus.Server.Extensibility.Authentication.HostServices;
 
 namespace Octopus.Server.Extensibility.Authentication.Guest.GuestAuth
 {
-    public class GuestUserStateChecker : IGuestUserStateChecker
+    class GuestUserStateChecker : IGuestUserStateChecker
     {
         readonly ILog log;
         readonly IUpdateableUserStore userStore;
