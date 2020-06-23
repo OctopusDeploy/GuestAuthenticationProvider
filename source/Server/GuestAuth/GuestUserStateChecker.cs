@@ -29,16 +29,16 @@ namespace Octopus.Server.Extensibility.Authentication.Guest.GuestAuth
                 var userResult = userStore.Create(
                     User.GuestLogin,
                     "Guest",
-                    null,
+                    string.Empty,
                     CancellationToken.None,
                     apiKeyDescriptor: new ApiKeyDescriptor("API-GUEST", "API-GUEST"),
                     password: Guid.NewGuid().ToString());
-                if (!userResult.Succeeded)
+                if (userResult.WasFailure)
                 {
-                    log.Error("Error creating guest account: " + userResult.FailureReason);
+                    log.Error("Error creating guest account: " + userResult.ErrorString);
                     return;
                 }
-                user = userResult.User;
+                user = userResult.Value;
 
                 // When the special guest login mode is enabled, no password is actually needed for the guest. 
                 // But we give them a default password anyway just in case someone disables guest login and then re-enables the 
@@ -48,8 +48,8 @@ namespace Octopus.Server.Extensibility.Authentication.Guest.GuestAuth
                 user.SetPassword(pwd);
             }
 
-            // if we're enabling then by now the user must exist
-            if (isEnabled)
+            // if we're enabling then by now the user must exist (we're doing the null check here to keep the compiler happy)
+            if (user != null && isEnabled)
             {
                 userStore.EnableUser(user.Id);
             }
