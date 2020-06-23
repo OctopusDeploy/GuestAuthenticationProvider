@@ -24,6 +24,8 @@ namespace Octopus.Server.Extensibility.Authentication.Guest.GuestAuth
             this.configurationStore = configurationStore;
         }
 
+        public string IdentityProviderName => GuestAuthenticationProvider.ProviderName;
+
         public int Priority => 1;
 
         public ResultFromExtension<IUser> ValidateCredentials(string username, string password, CancellationToken cancellationToken)

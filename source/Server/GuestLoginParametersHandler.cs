@@ -16,8 +16,10 @@ namespace Octopus.Server.Extensibility.Authentication.Guest
         {
             this.guestConfigurationStore = guestConfigurationStore;
         }
-        
-        public LoginInitiatedResult? WasExternalLoginInitiated(string encodedQueryString)
+
+        public string IdentityProviderName => GuestAuthenticationProvider.ProviderName;
+
+        public bool? WasExternalLoginInitiated(string encodedQueryString)
         {
             if (!guestConfigurationStore.GetIsEnabled())
                 return null;
@@ -25,12 +27,7 @@ namespace Octopus.Server.Extensibility.Authentication.Guest
             var parameters = parser.Parse(encodedQueryString);
             
             var autoLoginParameter = GetAutoLoginParameterIfPresent(parameters);
-            return autoLoginParameter != null ? LoginAsGuest(autoLoginParameter) : null;
-        }
-
-        private static LoginInitiatedResult LoginAsGuest(EncodedQueryStringParser.QueryStringParameter arg)
-        {
-            return new LoginInitiatedResult(GuestAuthenticationProvider.ProviderName);
+            return autoLoginParameter != null;
         }
 
         private static EncodedQueryStringParser.QueryStringParameter? GetAutoLoginParameterIfPresent(EncodedQueryStringParser.QueryStringParameter[] parameters)
