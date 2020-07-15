@@ -38,10 +38,10 @@ namespace Octopus.Server.Extensibility.Authentication.Guest.GuestAuth
                     log.Error("Error creating guest account: " + userResult.ErrorString);
                     return;
                 }
-                user = userResult.Value;
+                user = userResult.Value!; // this cannot actually be null if we got a result back
 
-                // When the special guest login mode is enabled, no password is actually needed for the guest. 
-                // But we give them a default password anyway just in case someone disables guest login and then re-enables the 
+                // When the special guest login mode is enabled, no password is actually needed for the guest.
+                // But we give them a default password anyway just in case someone disables guest login and then re-enables the
                 // account
                 var randomMilliseconds = new Random(DateTimeOffset.UtcNow.Millisecond).Next(100000);
                 var pwd = DateTimeOffset.UtcNow.AddMilliseconds(randomMilliseconds).ToString();
