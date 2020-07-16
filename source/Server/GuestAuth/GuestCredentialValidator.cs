@@ -28,7 +28,7 @@ namespace Octopus.Server.Extensibility.Authentication.Guest.GuestAuth
 
         public int Priority => 1;
 
-        public ResultFromExtension<IUser> ValidateCredentials(string username, string password, CancellationToken cancellationToken)
+        public IResultFromExtension<IUser> ValidateCredentials(string username, string password, CancellationToken cancellationToken)
         {
             if ((!configurationStore.GetIsEnabled() || !string.Equals(username, User.GuestLogin, StringComparison.OrdinalIgnoreCase)))
                 return ResultFromExtension<IUser>.ExtensionDisabled();

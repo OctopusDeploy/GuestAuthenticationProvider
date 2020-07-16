@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using Octopus.Data;
 using Octopus.Data.Model.User;
 using Octopus.Data.Storage.User;
 using Octopus.Diagnostics;
@@ -33,12 +34,13 @@ namespace Octopus.Server.Extensibility.Authentication.Guest.GuestAuth
                     CancellationToken.None,
                     apiKeyDescriptor: new ApiKeyDescriptor("API-GUEST", "API-GUEST"),
                     password: Guid.NewGuid().ToString());
-                if (userResult.WasFailure)
+                if (userResult is FailureResult failure)
                 {
-                    log.Error("Error creating guest account: " + userResult.ErrorString);
+                    log.Error("Error creating guest account: " + failure.ErrorString);
                     return;
                 }
-                user = userResult.Value!; // this cannot actually be null if we got a result back
+
+                user = ((Result<IUser>)userResult).Value;
 
                 // When the special guest login mode is enabled, no password is actually needed for the guest.
                 // But we give them a default password anyway just in case someone disables guest login and then re-enables the
