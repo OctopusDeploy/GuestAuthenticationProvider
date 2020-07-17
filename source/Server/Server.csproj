@@ -4,18 +4,20 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Octopus.Server.Extensibility.Authentication.Guest</RootNamespace>
     <AssemblyName>Octopus.Server.Extensibility.Authentication.Guest</AssemblyName>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <Authors>Octopus Deploy</Authors>
     <PackageLicenseUrl>https://github.com/OctopusDeploy/GuestAuthenticationProvider/blob/master/LICENSE.txt</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/OctopusDeploy/GuestAuthenticationProvider</PackageProjectUrl>
     <PackageIconUrl>http://i.octopusdeploy.com/resources/Avatar3_360.png</PackageIconUrl>
+    <Nullable>enable</Nullable>
+    <WarningsAsErrors>true</WarningsAsErrors>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Octopus.Configuration" Version="2.0.1" />
-    <PackageReference Include="Octopus.Diagnostics" Version="1.3.0" />
-    <PackageReference Include="Octopus.Server.Extensibility" Version="9.0.0" />
-    <PackageReference Include="Octopus.Server.Extensibility.Authentication" Version="9.3.0" />
+    <PackageReference Include="Octopus.Configuration" Version="2.1.0" />
+    <PackageReference Include="Octopus.Diagnostics" Version="1.3.5" />
+    <PackageReference Include="Octopus.Server.Extensibility" Version="10.0.2" />
+    <PackageReference Include="Octopus.Server.Extensibility.Authentication" Version="10.0.1" />
   </ItemGroup>
 
 </Project>

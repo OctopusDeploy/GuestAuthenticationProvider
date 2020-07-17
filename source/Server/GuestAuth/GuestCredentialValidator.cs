@@ -4,7 +4,7 @@ using Octopus.Data.Model.User;
 using Octopus.Data.Storage.User;
 using Octopus.Diagnostics;
 using Octopus.Server.Extensibility.Authentication.Guest.Configuration;
-using Octopus.Server.Extensibility.Authentication.Storage.User;
+using Octopus.Server.Extensibility.Results;
 
 namespace Octopus.Server.Extensibility.Authentication.Guest.GuestAuth
 {
@@ -24,19 +24,21 @@ namespace Octopus.Server.Extensibility.Authentication.Guest.GuestAuth
             this.configurationStore = configurationStore;
         }
 
+        public string IdentityProviderName => GuestAuthenticationProvider.ProviderName;
+
         public int Priority => 1;
 
-        public AuthenticationUserCreateResult ValidateCredentials(string username, string password, CancellationToken cancellationToken)
+        public IResultFromExtension<IUser> ValidateCredentials(string username, string password, CancellationToken cancellationToken)
         {
             if ((!configurationStore.GetIsEnabled() || !string.Equals(username, User.GuestLogin, StringComparison.OrdinalIgnoreCase)))
-                return new AuthenticationUserCreateResult();
+                return ResultFromExtension<IUser>.ExtensionDisabled();
 
             var user = userStore.GetByUsername(username);
             var messageText = "Error retrieving Guest user details";
 
             if (user != null && user.IsActive)
             {
-                return new AuthenticationUserCreateResult(user);
+                return ResultFromExtension<IUser>.Success(user);
             }
             else if (user == null)
             {
@@ -48,7 +50,7 @@ namespace Octopus.Server.Extensibility.Authentication.Guest.GuestAuth
             }
 
             log.Warn(messageText);
-            return new AuthenticationUserCreateResult(messageText);
+            return ResultFromExtension<IUser>.Failed(messageText);
         }
     }
 }

@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using Octopus.CoreUtilities;
 using Octopus.Server.Extensibility.Authentication.Extensions;
 using Octopus.Server.Extensibility.Authentication.Guest.Configuration;
 using Octopus.Server.Extensibility.Authentication.Web;
@@ -17,31 +16,25 @@ namespace Octopus.Server.Extensibility.Authentication.Guest
         {
             this.guestConfigurationStore = guestConfigurationStore;
         }
-        
-        public Maybe<LoginInitiatedResult> WasExternalLoginInitiated(string encodedQueryString)
+
+        public string IdentityProviderName => GuestAuthenticationProvider.ProviderName;
+
+        public bool? WasExternalLoginInitiated(string encodedQueryString)
         {
             if (!guestConfigurationStore.GetIsEnabled())
-                return Maybe<LoginInitiatedResult>.None;
+                return null;
             var parser = new EncodedQueryStringParser();
             var parameters = parser.Parse(encodedQueryString);
             
             var autoLoginParameter = GetAutoLoginParameterIfPresent(parameters);
-            
-            return autoLoginParameter.SelectValueOr(
-                selector: LoginAsGuest,
-                ifNone: Maybe<LoginInitiatedResult>.None);
+            return autoLoginParameter != null;
         }
 
-        private static Maybe<LoginInitiatedResult> LoginAsGuest(EncodedQueryStringParser.QueryStringParameter arg)
-        {
-            return new LoginInitiatedResult(GuestAuthenticationProvider.ProviderName).AsSome();
-        }
-
-        private static Maybe<EncodedQueryStringParser.QueryStringParameter> GetAutoLoginParameterIfPresent(EncodedQueryStringParser.QueryStringParameter[] parameters)
+        private static EncodedQueryStringParser.QueryStringParameter? GetAutoLoginParameterIfPresent(EncodedQueryStringParser.QueryStringParameter[] parameters)
         {
             return parameters.FirstOrDefault(p =>
                 p.Name.Equals(AutoLoginParameterName, StringComparison.OrdinalIgnoreCase) &&
-                p.Value.Equals(AutoLoginParameterValue, StringComparison.OrdinalIgnoreCase)).ToMaybe();
+                p.Value.Equals(AutoLoginParameterValue, StringComparison.OrdinalIgnoreCase));
         }
     }
 }
