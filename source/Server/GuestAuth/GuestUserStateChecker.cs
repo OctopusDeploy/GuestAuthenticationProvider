@@ -34,13 +34,13 @@ namespace Octopus.Server.Extensibility.Authentication.Guest.GuestAuth
                     CancellationToken.None,
                     apiKeyDescriptor: new ApiKeyDescriptor("API-GUEST", "API-GUEST"),
                     password: Guid.NewGuid().ToString());
-                if (userResult is FailureResult failure)
+                if (userResult is IFailureResult failure)
                 {
                     log.Error("Error creating guest account: " + failure.ErrorString);
                     return;
                 }
 
-                user = ((Result<IUser>)userResult).Value;
+                user = ((ISuccessResult<IUser>)userResult).Value;
 
                 // When the special guest login mode is enabled, no password is actually needed for the guest.
                 // But we give them a default password anyway just in case someone disables guest login and then re-enables the
