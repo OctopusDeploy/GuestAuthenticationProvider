@@ -9,13 +9,13 @@ namespace Octopus.Server.Extensibility.Authentication.Guest.Configuration
     class DatabaseInitializer : ExecuteWhenDatabaseInitializes
     {
         readonly ILog log;
-        readonly IKeyValueStore settings;
+        readonly IWritableKeyValueStore settings;
         readonly IConfigurationStore configurationStore;
         readonly IGuestUserStateChecker guestUserStateChecker;
 
         private bool cleanupRequired = false;
 
-        public DatabaseInitializer(ILog log, IKeyValueStore settings, IConfigurationStore configurationStore, IGuestUserStateChecker guestUserStateChecker)
+        public DatabaseInitializer(ILog log, IWritableKeyValueStore settings, IConfigurationStore configurationStore, IGuestUserStateChecker guestUserStateChecker)
         {
             this.log = log;
             this.settings = settings;
