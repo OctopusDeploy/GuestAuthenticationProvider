@@ -10,12 +10,12 @@ namespace Octopus.Server.Extensibility.Authentication.Guest.GuestAuth
 {
     class GuestCredentialValidator : IGuestCredentialValidator
     {
-        readonly ILog log;
+        readonly ISystemLog log;
         readonly IUserStore userStore;
         readonly IGuestConfigurationStore configurationStore;
 
         public GuestCredentialValidator(
-            ILog log,
+            ISystemLog log,
             IUserStore userStore,
             IGuestConfigurationStore configurationStore)
         {
