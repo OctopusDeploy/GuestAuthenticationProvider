@@ -7,11 +7,11 @@ namespace Octopus.Server.Extensibility.Authentication.Guest.Configuration
 {
     class GuestConfigureCommands : IContributeToConfigureCommand
     {
-        readonly ILog log;
+        readonly ISystemLog log;
         readonly Lazy<IGuestConfigurationStore> configurationStore;
 
         public GuestConfigureCommands(
-            ILog log,
+            ISystemLog log,
             Lazy<IGuestConfigurationStore> configurationStore)
         {
             this.log = log;
@@ -25,7 +25,7 @@ namespace Octopus.Server.Extensibility.Authentication.Guest.Configuration
                 var isEnabled = bool.Parse(v);
                 configurationStore.Value.SetIsEnabled(isEnabled);
                 log.Info($"Guest login enabled: {isEnabled}");
-            }); 
+            });
         }
     }
 }

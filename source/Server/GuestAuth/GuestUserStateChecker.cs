@@ -10,10 +10,10 @@ namespace Octopus.Server.Extensibility.Authentication.Guest.GuestAuth
 {
     class GuestUserStateChecker : IGuestUserStateChecker
     {
-        readonly ILog log;
+        readonly ISystemLog log;
         readonly IUpdateableUserStore userStore;
 
-        public GuestUserStateChecker(ILog log, IUpdateableUserStore userStore)
+        public GuestUserStateChecker(ISystemLog log, IUpdateableUserStore userStore)
         {
             this.log = log;
             this.userStore = userStore;
