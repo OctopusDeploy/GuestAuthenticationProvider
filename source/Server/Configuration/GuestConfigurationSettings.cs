@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Octopus.Server.Extensibility.Authentication.Guest.GuestAuth;
 using Octopus.Server.Extensibility.Extensions.Infrastructure.Configuration;
 using Octopus.Server.Extensibility.HostServices.Mapping;
 
@@ -7,13 +6,9 @@ namespace Octopus.Server.Extensibility.Authentication.Guest.Configuration
 {
     class GuestConfigurationSettings : ExtensionConfigurationSettings<GuestConfiguration, GuestConfigurationResource, IGuestConfigurationStore>, IGuestConfigurationSettings
     {
-        private readonly IGuestUserStateChecker guestUserStateChecker;
-
         public GuestConfigurationSettings(
-            IGuestConfigurationStore guestConfigurationStore,
-            IGuestUserStateChecker guestUserStateChecker) : base(guestConfigurationStore)
+            IGuestConfigurationStore guestConfigurationStore) : base(guestConfigurationStore)
         {
-            this.guestUserStateChecker = guestUserStateChecker;
         }
 
         public override string Id => GuestConfigurationStore.SingletonId;
@@ -29,11 +24,7 @@ namespace Octopus.Server.Extensibility.Authentication.Guest.Configuration
 
         public override void BuildMappings(IResourceMappingsBuilder builder)
         {
-            builder.Map<GuestConfigurationResource, GuestConfiguration>()
-                .EnrichModel((model, resource) =>
-                {
-                    guestUserStateChecker.EnsureGuestUserIsInCorrectState(resource.IsEnabled);
-                });
+            builder.Map<GuestConfigurationResource, GuestConfiguration>();
         }
     }
 }
