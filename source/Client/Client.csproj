@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net451;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net452;netstandard2.0</TargetFrameworks>
     <PackageId>Octopus.Client.Extensibility.Authentication.Guest</PackageId>
     <Version>0.0.0-local</Version>
     <Authors>Octopus Deploy</Authors>
@@ -17,7 +17,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Octopus.Client" Version="6.2.0" />
+    <PackageReference Include="Octopus.Server.Client" Version="11.2.3319" />
   </ItemGroup>
   
 </Project>
