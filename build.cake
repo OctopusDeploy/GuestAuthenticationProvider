@@ -55,32 +55,32 @@ Task("__Default")
     .IsDependentOn("__Pack")
     .IsDependentOn("__CopyToLocalPackages");
 
-Task("__Clean")
-    .Does(() =>
-{
-    CleanDirectory(artifactsDir);
-    CleanDirectory(publishDir);
-    CleanDirectories("./source/**/bin");
-    CleanDirectories("./source/**/obj");
-});
+// Task("__Clean")
+//     .Does(() =>
+// {
+//     CleanDirectory(artifactsDir);
+//     CleanDirectory(publishDir);
+//     CleanDirectories("./source/**/bin");
+//     CleanDirectories("./source/**/obj");
+// });
 
-Task("__Restore")
-    .Does(() => DotNetCoreRestore("source", new DotNetCoreRestoreSettings
-    {
-        ArgumentCustomization = args => args.Append($"/p:Version={nugetVersion}")
-    })
-);
+// Task("__Restore")
+//     .Does(() => DotNetCoreRestore("source", new DotNetCoreRestoreSettings
+//     {
+//         ArgumentCustomization = args => args.Append($"/p:Version={nugetVersion}")
+//     })
+// );
 
 
-Task("__Build")
-    .Does(() =>
-{
-    DotNetCoreBuild("./source", new DotNetCoreBuildSettings
-    {
-        Configuration = configuration,
-        ArgumentCustomization = args => args.Append($"/p:Version={nugetVersion}")
-    });
-});
+// Task("__Build")
+//     .Does(() =>
+// {
+//     DotNetCoreBuild("./source", new DotNetCoreBuildSettings
+//     {
+//         Configuration = configuration,
+//         ArgumentCustomization = args => args.Append($"/p:Version={nugetVersion}")
+//     });
+// });
 
 Task("__Pack")
     .Does(() => {

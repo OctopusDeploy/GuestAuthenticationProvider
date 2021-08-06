@@ -13,12 +13,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Server", "Server\Server.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client", "Client\Client.csproj", "{76C83698-F714-449D-A58F-9F2DF667DA3D}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "_build", "..\build\_build.csproj", "{A2CD54B5-C0B4-47DA-A3F0-2846CD428237}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A2CD54B5-C0B4-47DA-A3F0-2846CD428237}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2CD54B5-C0B4-47DA-A3F0-2846CD428237}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F284F2CC-60A4-4961-AEFA-DACF14616C4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F284F2CC-60A4-4961-AEFA-DACF14616C4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F284F2CC-60A4-4961-AEFA-DACF14616C4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
