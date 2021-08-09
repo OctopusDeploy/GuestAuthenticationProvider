@@ -55,56 +55,56 @@ Task("__Default")
     .IsDependentOn("__Pack")
     .IsDependentOn("__CopyToLocalPackages");
 
-// Task("__Clean")
-//     .Does(() =>
-// {
-//     CleanDirectory(artifactsDir);
-//     CleanDirectory(publishDir);
-//     CleanDirectories("./source/**/bin");
-//     CleanDirectories("./source/**/obj");
-// });
+Task("__Clean")
+    .Does(() =>
+{
+    CleanDirectory(artifactsDir);
+    CleanDirectory(publishDir);
+    CleanDirectories("./source/**/bin");
+    CleanDirectories("./source/**/obj");
+});
 
-// Task("__Restore")
-//     .Does(() => DotNetCoreRestore("source", new DotNetCoreRestoreSettings
-//     {
-//         ArgumentCustomization = args => args.Append($"/p:Version={nugetVersion}")
-//     })
-// );
+Task("__Restore")
+    .Does(() => DotNetCoreRestore("source", new DotNetCoreRestoreSettings
+    {
+        ArgumentCustomization = args => args.Append($"/p:Version={nugetVersion}")
+    })
+);
 
 
-// Task("__Build")
-//     .Does(() =>
-// {
-//     DotNetCoreBuild("./source", new DotNetCoreBuildSettings
-//     {
-//         Configuration = configuration,
-//         ArgumentCustomization = args => args.Append($"/p:Version={nugetVersion}")
-//     });
-// });
+Task("__Build")
+    .Does(() =>
+{
+    DotNetCoreBuild("./source", new DotNetCoreBuildSettings
+    {
+        Configuration = configuration,
+        ArgumentCustomization = args => args.Append($"/p:Version={nugetVersion}")
+    });
+});
 
-// Task("__Pack")
-//     .Does(() => {
-//         DotNetCorePack("source/Client", new DotNetCorePackSettings
-//         {
-//             Configuration = configuration,
-//             OutputDirectory = artifactsDir,
-//             NoBuild = true,
-//             ArgumentCustomization = args => args.Append($"/p:Version={nugetVersion}")
-//         });
+Task("__Pack")
+    .Does(() => {
+        DotNetCorePack("source/Client", new DotNetCorePackSettings
+        {
+            Configuration = configuration,
+            OutputDirectory = artifactsDir,
+            NoBuild = true,
+            ArgumentCustomization = args => args.Append($"/p:Version={nugetVersion}")
+        });
 
-//         var solutionDir = "./source/";
-//         var odNugetPackDir = Path.Combine(publishDir, "od");
-//         var nuspecFile = "Octopus.Server.Extensibility.Authentication.Guest.nuspec";
-//         CreateDirectory(odNugetPackDir);
-//         CopyFileToDirectory(Path.Combine(assetDir, nuspecFile), odNugetPackDir);
+        var solutionDir = "./source/";
+        var odNugetPackDir = Path.Combine(publishDir, "od");
+        var nuspecFile = "Octopus.Server.Extensibility.Authentication.Guest.nuspec";
+        CreateDirectory(odNugetPackDir);
+        CopyFileToDirectory(Path.Combine(assetDir, nuspecFile), odNugetPackDir);
 
-//         CopyFileToDirectory(solutionDir + "Server" + bin + "Octopus.Server.Extensibility.Authentication.Guest.dll", odNugetPackDir);
+        CopyFileToDirectory(solutionDir + "Server" + bin + "Octopus.Server.Extensibility.Authentication.Guest.dll", odNugetPackDir);
 
-//         NuGetPack(Path.Combine(odNugetPackDir, nuspecFile), new NuGetPackSettings {
-//             Version = nugetVersion,
-//             OutputDirectory = artifactsDir
-//         });
-//     });
+        NuGetPack(Path.Combine(odNugetPackDir, nuspecFile), new NuGetPackSettings {
+            Version = nugetVersion,
+            OutputDirectory = artifactsDir
+        });
+    });
 
 
 Task("__CopyToLocalPackages")
