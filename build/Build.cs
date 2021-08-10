@@ -33,7 +33,9 @@ class Build : NukeBuild
             {
                 EnsureCleanDirectory(ArtifactsDirectory);
                 EnsureCleanDirectory(PublishDirectory);
-                SourceDirectory.GlobDirectories("**/bin", "**/obj").ForEach(EnsureCleanDirectory);
+                SourceDirectory
+                    .GlobDirectories("**/bin", "**/obj")
+                    .ForEach(EnsureCleanDirectory);
             });
 
     Target Restore =>
@@ -41,7 +43,9 @@ class Build : NukeBuild
             .DependsOn(Clean)
             .Executes(() =>
             {
-                DotNetRestore(settings => settings.SetProjectFile(Solution).SetVersion(OctoVersionInfo.NuGetVersion));
+                DotNetRestore(settings => settings
+                    .SetProjectFile(Solution)
+                    .SetVersion(OctoVersionInfo.NuGetVersion));
             });
 
     Target Compile =>
@@ -49,7 +53,10 @@ class Build : NukeBuild
             .DependsOn(Restore)
             .Executes(() =>
             {
-                DotNetBuild(settings => settings.SetProjectFile(Solution).SetConfiguration(Configuration).SetVersion(OctoVersionInfo.NuGetVersion));
+                DotNetBuild(settings => settings
+                    .SetProjectFile(Solution)
+                    .SetConfiguration(Configuration)
+                    .SetVersion(OctoVersionInfo.NuGetVersion));
             });
 
     Target Pack =>
@@ -70,13 +77,16 @@ class Build : NukeBuild
                 EnsureExistingDirectory(odNugetPackDir);
                 CopyFileToDirectory(AssetDirectory / nuspecFile, odNugetPackDir);
 
-                var ConfigValueDirectory = IsLocalBuild ? "Debug" : "Release";
-                var dll = SourceDirectory / "Server" / "bin" / ConfigValueDirectory / "netstandard2.1" / "Octopus.Server.Extensibility.Authentication.Guest.dll";
-                CopyFileToDirectory(dll, odNugetPackDir);
+                var dllPattern = SourceDirectory / "Server" / "bin" / "**" / "netstandard2.1" / "Octopus.Server.Extensibility.Authentication.Guest.dll";
+                GlobFiles(dllPattern)
+                    .ForEach(dll => CopyFileToDirectory(dll, odNugetPackDir));
 
                 var newNuspec = odNugetPackDir / nuspecFile;
 
-                NuGetTasks.NuGetPack(settings => settings.SetVersion(OctoVersionInfo.NuGetVersion).SetOutputDirectory(ArtifactsDirectory).SetTargetPath(newNuspec));
+                NuGetTasks.NuGetPack(settings => settings
+                    .SetVersion(OctoVersionInfo.NuGetVersion)
+                    .SetOutputDirectory(ArtifactsDirectory)
+                    .SetTargetPath(newNuspec));
             });
 
     Target CopyToLocalPackages =>
@@ -86,8 +96,8 @@ class Build : NukeBuild
             .Executes(() =>
             {
                 EnsureExistingDirectory(LocalPackagesDirectory);
-                var dllFiles = GlobFiles(ArtifactsDirectory, $"Octopus.*.Extensibility.Authentication.Guest.*.nupkg");
-                dllFiles.ForEach(x => CopyFileToDirectory(x, LocalPackagesDirectory));
+                var nupkgs = GlobFiles(ArtifactsDirectory, $"Octopus.*.Extensibility.Authentication.Guest.*.nupkg");
+                nupkgs.ForEach(x => CopyFileToDirectory(x, LocalPackagesDirectory));
             });
 
     Target Default => _ => _.DependsOn(Pack);
