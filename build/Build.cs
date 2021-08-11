@@ -45,7 +45,7 @@ class Build : NukeBuild
             {
                 DotNetRestore(settings => settings
                     .SetProjectFile(Solution)
-                    .SetVersion(OctoVersionInfo.NuGetVersion));
+                    .SetVersion(OctoVersionInfo.FullSemVer));
             });
 
     Target Compile =>
@@ -56,7 +56,7 @@ class Build : NukeBuild
                 DotNetBuild(settings => settings
                     .SetProjectFile(Solution)
                     .SetConfiguration(Configuration)
-                    .SetVersion(OctoVersionInfo.NuGetVersion));
+                    .SetVersion(OctoVersionInfo.FullSemVer));
             });
 
     Target Pack =>
@@ -69,7 +69,7 @@ class Build : NukeBuild
                     .SetConfiguration(Configuration)
                     .SetOutputDirectory(ArtifactsDirectory)
                     .EnableNoBuild()
-                    .SetVersion(OctoVersionInfo.NuGetVersion));
+                    .SetVersion(OctoVersionInfo.FullSemVer));
 
                 var odNugetPackDir = PublishDirectory / "od";
                 var nuspecFile = "Octopus.Server.Extensibility.Authentication.Guest.nuspec";
@@ -84,7 +84,7 @@ class Build : NukeBuild
                 var newNuspec = odNugetPackDir / nuspecFile;
 
                 NuGetTasks.NuGetPack(settings => settings
-                    .SetVersion(OctoVersionInfo.NuGetVersion)
+                    .SetVersion(OctoVersionInfo.FullSemVer)
                     .SetOutputDirectory(ArtifactsDirectory)
                     .SetTargetPath(newNuspec));
             });
