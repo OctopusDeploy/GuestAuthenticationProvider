@@ -97,7 +97,7 @@ class Build : NukeBuild
             {
                 EnsureExistingDirectory(LocalPackagesDirectory);
                 var nupkgs = GlobFiles(ArtifactsDirectory, $"Octopus.*.Extensibility.Authentication.Guest.*.nupkg");
-                nupkgs.ForEach(x => CopyFileToDirectory(x, LocalPackagesDirectory));
+                nupkgs.ForEach(x => CopyFileToDirectory(x, LocalPackagesDirectory, FileExistsPolicy.Overwrite));
             });
 
     Target Default => _ => _.DependsOn(Pack);
