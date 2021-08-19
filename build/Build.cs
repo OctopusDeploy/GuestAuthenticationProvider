@@ -1,3 +1,4 @@
+using System;
 using Nuke.Common;
 using Nuke.Common.Execution;
 using Nuke.Common.IO;
@@ -8,8 +9,7 @@ using static Nuke.Common.IO.FileSystemTasks;
 using static Nuke.Common.IO.PathConstruction;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
 using Nuke.Common.Tools.NuGet;
-using Nuke.OctoVersion;
-using OctoVersion.Core;
+using Nuke.Common.Tools.OctoVersion;
 
 [CheckBuildProjectConfigurations]
 class Build : NukeBuild
@@ -18,7 +18,7 @@ class Build : NukeBuild
     readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
 
     [Solution] readonly Solution Solution;
-    [NukeOctoVersion] readonly OctoVersionInfo OctoVersionInfo;
+    [OctoVersion] readonly OctoVersionInfo OctoVersionInfo;
 
     AbsolutePath LocalPackagesDirectory => RootDirectory / ".." / "LocalPackages";
     AbsolutePath SourceDirectory => RootDirectory / "source";
@@ -64,6 +64,11 @@ class Build : NukeBuild
             .DependsOn(Compile)
             .Executes(() =>
             {
+
+                // This is done to pass the data to github actions
+                Console.Out.WriteLine($"::set-output name=semver::{OctoVersionInfo.FullSemVer}");
+                Console.Out.WriteLine($"::set-output name=prerelease_tag::{OctoVersionInfo.PreReleaseTagWithDash}");
+
                 DotNetPack(settings => settings
                     .SetProject(Solution)
                     .SetConfiguration(Configuration)
