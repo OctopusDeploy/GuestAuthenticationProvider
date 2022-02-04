@@ -1,10 +1,10 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Octopus.Server.Extensibility.Authentication.Guest</RootNamespace>
     <AssemblyName>Octopus.Server.Extensibility.Authentication.Guest</AssemblyName>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <Authors>Octopus Deploy</Authors>
     <PackageLicenseUrl>https://github.com/OctopusDeploy/GuestAuthenticationProvider/blob/master/LICENSE.txt</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/OctopusDeploy/GuestAuthenticationProvider</PackageProjectUrl>
