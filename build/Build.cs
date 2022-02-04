@@ -14,8 +14,8 @@ using Nuke.Common.Tools.OctoVersion;
 [CheckBuildProjectConfigurations]
 class Build : NukeBuild
 {
-    [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
-    readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
+    [Parameter("Configuration to build - 'Release' (server)")]
+    readonly Configuration Configuration = Configuration.Release;
 
     [Solution] readonly Solution Solution;
     [OctoVersion] readonly OctoVersionInfo OctoVersionInfo;
@@ -24,11 +24,9 @@ class Build : NukeBuild
     AbsolutePath SourceDirectory => RootDirectory / "source";
     AbsolutePath ArtifactsDirectory => RootDirectory / "artifacts";
     AbsolutePath PublishDirectory => RootDirectory / "publish";
-    AbsolutePath AssetDirectory => RootDirectory / "BuildAssets";
 
     Target Clean =>
         _ => _
-            .Before(Restore)
             .Executes(() =>
             {
                 EnsureCleanDirectory(ArtifactsDirectory);
@@ -43,9 +41,8 @@ class Build : NukeBuild
             .DependsOn(Clean)
             .Executes(() =>
             {
-                DotNetRestore(settings => settings
-                    .SetProjectFile(Solution)
-                    .SetVersion(OctoVersionInfo.FullSemVer));
+                DotNetRestore(_ => _
+                    .SetProjectFile(Solution));
             });
 
     Target Compile =>
@@ -53,7 +50,13 @@ class Build : NukeBuild
             .DependsOn(Restore)
             .Executes(() =>
             {
-                DotNetBuild(settings => settings
+                Logger.Info("Building Octopus Server Guest Authentication Provider v{0}", OctoVersionInfo.FullSemVer);
+
+                // This is done to pass the data to github actions
+                Console.Out.WriteLine($"::set-output name=semver::{OctoVersionInfo.FullSemVer}");
+                Console.Out.WriteLine($"::set-output name=prerelease_tag::{OctoVersionInfo.PreReleaseTagWithDash}");
+
+                DotNetBuild(_ => _
                     .SetProjectFile(Solution)
                     .SetConfiguration(Configuration)
                     .SetVersion(OctoVersionInfo.FullSemVer));
@@ -64,34 +67,34 @@ class Build : NukeBuild
             .DependsOn(Compile)
             .Executes(() =>
             {
+                Logger.Info("Packing Octopus Server Username Password Authentication Provider v{0}", OctoVersionInfo.FullSemVer);
+                const string nuspecFile = "Octopus.Server.Extensibility.Authentication.Guest.nuspec";
+                
+                CopyFileToDirectory(BuildProjectDirectory / nuspecFile, PublishDirectory);
+                CopyFileToDirectory(RootDirectory / "LICENSE.txt", PublishDirectory);
+                CopyFileToDirectory(BuildProjectDirectory / "icon.png", PublishDirectory);
+                CopyFileToDirectory(SourceDirectory / "Server" / "bin" / Configuration / "net5.0" / "Octopus.Server.Extensibility.Authentication.Guest.dll" , PublishDirectory);
 
-                // This is done to pass the data to github actions
-                Console.Out.WriteLine($"::set-output name=semver::{OctoVersionInfo.FullSemVer}");
-                Console.Out.WriteLine($"::set-output name=prerelease_tag::{OctoVersionInfo.PreReleaseTagWithDash}");
 
-                DotNetPack(settings => settings
-                    .SetProject(Solution)
+                DotNetPack(_ => _
+                    .SetProject(SourceDirectory / "Server"/ "Server.csproj")
+                    .SetVersion(OctoVersionInfo.FullSemVer)
                     .SetConfiguration(Configuration)
                     .SetOutputDirectory(ArtifactsDirectory)
                     .EnableNoBuild()
-                    .SetVersion(OctoVersionInfo.FullSemVer));
-
-                var odNugetPackDir = PublishDirectory / "od";
-                var nuspecFile = "Octopus.Server.Extensibility.Authentication.Guest.nuspec";
-
-                EnsureExistingDirectory(odNugetPackDir);
-                CopyFileToDirectory(AssetDirectory / nuspecFile, odNugetPackDir);
-
-                var dllPattern = SourceDirectory / "Server" / "bin" / "**" / "netstandard2.1" / "Octopus.Server.Extensibility.Authentication.Guest.dll";
-                GlobFiles(dllPattern)
-                    .ForEach(dll => CopyFileToDirectory(dll, odNugetPackDir));
-
-                var newNuspec = odNugetPackDir / nuspecFile;
-
-                NuGetTasks.NuGetPack(settings => settings
+                    .DisableIncludeSymbols()
+                    .SetVerbosity(DotNetVerbosity.Normal)
+                    .SetProperty("NuspecFile", PublishDirectory / nuspecFile)
+                    .SetProperty("NuspecProperties", $"Version={OctoVersionInfo.FullSemVer}"));
+            
+                DotNetPack(_ => _
+                    .SetProject(SourceDirectory / "Client"/ "Client.csproj")
                     .SetVersion(OctoVersionInfo.FullSemVer)
+                    .SetConfiguration(Configuration)
                     .SetOutputDirectory(ArtifactsDirectory)
-                    .SetTargetPath(newNuspec));
+                    .EnableNoBuild()
+                    .DisableIncludeSymbols()
+                    .SetVerbosity(DotNetVerbosity.Normal));
             });
 
     Target CopyToLocalPackages =>
@@ -101,11 +104,16 @@ class Build : NukeBuild
             .Executes(() =>
             {
                 EnsureExistingDirectory(LocalPackagesDirectory);
-                var nupkgs = GlobFiles(ArtifactsDirectory, $"Octopus.*.Extensibility.Authentication.Guest.*.nupkg");
-                nupkgs.ForEach(x => CopyFileToDirectory(x, LocalPackagesDirectory, FileExistsPolicy.Overwrite));
+                ArtifactsDirectory.GlobFiles("*.nupkg")
+                    .ForEach(package =>
+                    {
+                        CopyFileToDirectory(package, LocalPackagesDirectory, FileExistsPolicy.Overwrite);
+                    });
             });
 
-    Target Default => _ => _.DependsOn(Pack);
+    Target Default => _ => _
+        .DependsOn(Pack)
+        .DependsOn(CopyToLocalPackages);
 
     public static int Main() => Execute<Build>(x => x.Default);
 }
