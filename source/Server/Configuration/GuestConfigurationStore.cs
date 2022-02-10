@@ -24,5 +24,11 @@ namespace Octopus.Server.Extensibility.Authentication.Guest.Configuration
             base.SetIsEnabled(isEnabled);
             guestUserStateChecker.EnsureGuestUserIsInCorrectState(isEnabled);
         }
+
+        protected override void OnConfigurationChanged()
+        {
+            base.OnConfigurationChanged();
+            guestUserStateChecker.EnsureGuestUserIsInCorrectState(GetIsEnabled());
+        }
     }
 }
