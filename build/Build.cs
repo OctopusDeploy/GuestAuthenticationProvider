@@ -1,17 +1,14 @@
 using System;
 using Nuke.Common;
-using Nuke.Common.Execution;
 using Nuke.Common.IO;
 using Nuke.Common.ProjectModel;
 using Nuke.Common.Tools.DotNet;
 using Nuke.Common.Utilities.Collections;
 using static Nuke.Common.IO.FileSystemTasks;
-using static Nuke.Common.IO.PathConstruction;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
-using Nuke.Common.Tools.NuGet;
 using Nuke.Common.Tools.OctoVersion;
+using Serilog;
 
-[CheckBuildProjectConfigurations]
 class Build : NukeBuild
 {
     [Parameter("Configuration to build - 'Release' (server)")]
@@ -58,7 +55,7 @@ class Build : NukeBuild
             .DependsOn(Restore)
             .Executes(() =>
             {
-                Logger.Info("Building Octopus Server Guest Authentication Provider v{0}", OctoVersionInfo.FullSemVer);
+                Log.Logger.Information("Building Octopus Server Guest Authentication Provider v{Version}", OctoVersionInfo.FullSemVer);
 
                 // This is done to pass the data to github actions
                 Console.Out.WriteLine($"::set-output name=semver::{OctoVersionInfo.FullSemVer}");
@@ -75,13 +72,14 @@ class Build : NukeBuild
             .DependsOn(Compile)
             .Executes(() =>
             {
-                Logger.Info("Packing Octopus Server Username Password Authentication Provider v{0}", OctoVersionInfo.FullSemVer);
+                Log.Logger.Information("Packing Octopus Server Guest Authentication Provider v{Version}", OctoVersionInfo.FullSemVer);
+
                 const string nuspecFile = "Octopus.Server.Extensibility.Authentication.Guest.nuspec";
                 
                 CopyFileToDirectory(BuildProjectDirectory / nuspecFile, PublishDirectory);
                 CopyFileToDirectory(RootDirectory / "LICENSE.txt", PublishDirectory);
                 CopyFileToDirectory(BuildProjectDirectory / "icon.png", PublishDirectory);
-                CopyFileToDirectory(SourceDirectory / "Server" / "bin" / Configuration / "net5.0" / "Octopus.Server.Extensibility.Authentication.Guest.dll" , PublishDirectory);
+                CopyFileToDirectory(SourceDirectory / "Server" / "bin" / Configuration / "net6.0" / "Octopus.Server.Extensibility.Authentication.Guest.dll" , PublishDirectory);
 
 
                 DotNetPack(_ => _

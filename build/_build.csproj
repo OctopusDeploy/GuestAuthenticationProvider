@@ -11,9 +11,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageDownload Include="Octopus.OctoVersion.Tool" Version="[0.3.100]" />
+        <PackageDownload Include="OctoVersion.Tool" Version="[0.2.1058]" />
         <PackageReference Include="Nuke.Common" Version="6.2.1" />
-        <PackageDownload Include="NuGet.CommandLine" Version="[5.9.1]"/>
+        <PackageDownload Include="NuGet.CommandLine" Version="[5.9.1]" />
     </ItemGroup>
 
 </Project>
