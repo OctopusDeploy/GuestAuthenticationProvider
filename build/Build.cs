@@ -16,9 +16,17 @@ class Build : NukeBuild
 {
     [Parameter("Configuration to build - 'Release' (server)")]
     readonly Configuration Configuration = Configuration.Release;
-
+    
     [Solution] readonly Solution Solution;
-    [OctoVersion] readonly OctoVersionInfo OctoVersionInfo;
+
+    [Parameter("Whether to auto-detect the branch name - this is okay for a local build, but should not be used under CI.")] readonly bool AutoDetectBranch = IsLocalBuild;
+
+    [OctoVersion(BranchMember = nameof(BranchName), AutoDetectBranchMember = nameof(AutoDetectBranch), Framework = "net6.0")]
+    public OctoVersionInfo OctoVersionInfo;
+
+    const string CiBranchNameEnvVariable = "OCTOVERSION_CurrentBranch";
+    [Parameter("Branch name for OctoVersion to use to calculate the version number. Can be set via the environment variable " + CiBranchNameEnvVariable + ".", Name = CiBranchNameEnvVariable)]
+    string BranchName { get; set; }
 
     AbsolutePath LocalPackagesDirectory => RootDirectory / ".." / "LocalPackages";
     AbsolutePath SourceDirectory => RootDirectory / "source";
