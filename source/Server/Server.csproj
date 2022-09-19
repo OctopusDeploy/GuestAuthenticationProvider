@@ -4,7 +4,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Octopus.Server.Extensibility.Authentication.Guest</RootNamespace>
     <AssemblyName>Octopus.Server.Extensibility.Authentication.Guest</AssemblyName>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <Authors>Octopus Deploy</Authors>
     <PackageLicenseUrl>https://github.com/OctopusDeploy/GuestAuthenticationProvider/blob/master/LICENSE.txt</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/OctopusDeploy/GuestAuthenticationProvider</PackageProjectUrl>
